@@ -9,9 +9,11 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -41,6 +43,7 @@ public class NotificationModel implements Serializable {
     @Column(nullable = false)
     private String message;
 
+    @CreationTimestamp
     @Column(nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     private LocalDateTime creationDate;
@@ -48,4 +51,9 @@ public class NotificationModel implements Serializable {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private NotificationStatus notificationStatus;
+
+    @PrePersist
+    private void prePersist() {
+        notificationStatus = NotificationStatus.CREATED;
+    }
 }
