@@ -13,7 +13,7 @@ spring:
       discovery:
         serviceId: ead-config-server
   datasource:
-    url: jdbc:postgresql://localhost:5433/ead-notification
+    url: jdbc:postgresql://localhost:5432/ead-notification
     username: postgres
     password:
   jpa:
